@@ -1,9 +1,0 @@
-#1. Write an assignment statement that creates a variable named minutes containing the number of minutes in an hour
-minutes = 60 
-#2. Determine the datatype of the value contained in the variable 'minutes'
-type(minutes) 
-#the result is <class 'int'>
-#3. Write an subsequent assignment statement that updates the value in minutes by adding 5 to the current value.
-more_minutes = minutes + 5
-#4. Assume minutes = 1025 write a statement
-print(minutes // 60, “hours”, minutes % 60, “minutes”)
