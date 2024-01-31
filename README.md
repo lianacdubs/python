@@ -1,3 +1,5 @@
 # python
 ECS32A Introduction to Programming 
-Welcome Assignment! 
+## Table of Contents 
+### Homework 1 
+#### 
