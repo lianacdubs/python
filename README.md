@@ -1086,6 +1086,167 @@ The plot below was created using Google sheets:
 
 GoogleSheetsExampleBubblePlot.png
 
+### Homework 7 
+Note: The Unit 8 and the Unit 9 Part 1 Lectures contains the background information for this assignment.  This assignment will not be included in your coding style grade, however to get credit on this assignment we will still check that your code is commented and distinct from your partners and other students.
+
+Word Counting Class and Wordle
+
+AliceWordle.png 
+
+In lecture we have been developing a program that uses a dictionary to count the number of times each word appears in a book. This is important in many text processing situations; for instance, Google uses word frequencies to help choose Web pages that are relevant to the query words you type in.
+
+In this assignment, we will write a slightly fancier word frequency program using object oriented programming.  We'll use the most frequent words in the document to produce a "wordle", similar to the one in the picture at the bottom of this assignment. Luckily, we have a module called wordle.py which provides a function, wordleFromObject(), which lays out and displays the wordle. The function takes a Count object as input. In order to call the function and produce the wordle, we'll need to write some code to define and construct an object of class Count. This happens a lot when programming in Python: modules we want to use force us to use objects.
+
+In completing this assignment you will gain experience writing a class, since you will write this program to consist mostly of a class definition. This style of programming - putting most of the code into class definitions - is called "object-oriented programming". It's popular, even when we don't need objects for some other reason, since it helps keep things organized by providing clear interfaces while hiding complexity. Those who go on to ECS32B will see many, many class definitions.
+
+To start, you'll need to download the files from the Files/Homework7 directory on Canvas into the location you will be working. This includes (Alice.txt Download Alice.txtcounter_stubs.py Download counter_stubs.pystop_words.txt Download stop_words.txtwordle.py Download wordle.py).To develop the code we will be working with the complete text of the story "Alice in Wonderland". 
+
+Open the stub file counter_stubs.py in IDLE.  You'll find the beginning of the definition of the class Count. The Count class already defines three methods:  "__init__", "increment_count", "lookup_count", "get_num_words", and "get_top_words" which we'll fill in next. You should not need to change the definition lines we provide to complete the methods. 
+
+Part 1 (10 points) - Object initialization
+
+Save the file counter_stubs.py as counter1.py.
+
+Find the method "__init__" and add code to print a message that the object is being initialized. 
+
+Look for an assignment statement creating the class Count attribute word_counts. Update it so that word_counts is initialized to an empty dictionary. 
+
+Next add a print statement that indicates that a new object has been constructed. Running the updated program should produce the following result:
+
+Word Counter Initialized
+Unique words: None
+The second line of the output comes from a call to the get_num_words method which counts the number of words stored in the dictionary. We will update that next.
+
+Submit this program to gradescope as counter1.py.
+
+Part 2 (15 points) - Complete get_num_words method
+
+Save your result from Part 1 as counter2.py.
+
+Find the get_num_words method and update it so that it returns the number of keys in the word_counts dictionary. To access the word_counts dictionary within the method, you will use self.word_counts. 
+
+The len() function can be used on a dictionary to get the number of keys.
+
+After updating the method to return the number of keys in the dictionary, running the program should produce the following result:
+
+Word Counter Initialized
+Unique words: 0
+Submit this program to gradescope as counter2.py.
+
+Part 3 (20 points) - Methods to increment  and lookup count
+
+Save your result from Part 2 as counter3.py.
+
+The "increment_count" method is supposed to take a word as input. If the word is not in the dictionary, it should add a key-value pair to the dictionary, where the key is the word and the value (the count) is 1. If the word is already in the dictionary, your code should increment its count by 1. 
+
+Finally, the method "lookup_count" should take a word as input and return the count in the dictionary for that word, or 0 if the word is not in the dictionary.
+
+The goal of this part is to get the "increment_count" "lookup_count" methods working for the test code we have provided.  After you uncomment the test code for Part 3 and 4, running the program should produce the following result:
+
+Word Counter Initialized
+1
+1
+0
+0
+Unique words: 4
+Submit this program to gradescope as counter3.py.
+
+Part 4 (10 points) - Cleaning Words
+
+Save your result from Part 3 as counter4.py.
+
+You'll find that words tend to show up in the document in different forms, for instance "Well", "'Well", "well," and "well". To count them all together, we'd like to convert the first three forms to "well" before inserting or incrementing the count dictionary. 
+
+Add code to "increment_count" to clean the word argument by converting it to lower case and then stripping the punctuation off the ends. You can use the strip string method to clean punctuation off of the ends of words.  Assuming the word is in the variable word, the call would look like this:
+
+word = word.strip(string.punctuation)
+If, after cleaning, the word is the empty string, don't insert it into the dictionary! One way this can be accomplished is by executing a return statement, to return from the function, if the word is the empty string.
+
+Running the program after implementing cleaning should produce the following result:
+
+Word Counter Initialized
+1
+2
+0
+0
+Unique words: 2
+Submit this program to gradescope as counter4.py.
+
+Part 5 (15 points) - Read the document and count the words
+
+Comment out the test code for Parts 3 and 4 and save the new program as counter5.py
+
+For this part make sure you are using the Alice.txt file from the Homework8 directory.  If you previously downloaded Alice.txt from the Code directory, ignore that. Headers were removed from this Alice.txt to make the words relevant only to the book.
+
+Add a loop in the main program that asks the user for a file, opens it, and uses the increment_count method to count all the words in the file. Remember to divide every line of the file into words using the split() string method, and use your increment_count method to count each word.
+
+The split string method should split on all whitespace characters. Recall this is the default behavior when no argument is given to the split method. 
+
+Uncomment the test code for Parts 5 and 6 and run your program. Your output should look like this: 
+
+Word Counter Initialized
+Enter book file:Alice.txt
+alice: 385
+rabbit: 43
+and: 855
+she: 537
+Unique words: 2863
+Submit this program to gradescope as counter5.py.
+
+Part 6 (15 points) - Use a list of stop words to filter out frequent words
+
+Save your result from Part 5 as counter6.py.
+
+The file "stop_words.txt" contains a list of "stop words" to skip words which are very common in English; those words don't tell you much about what the document is about. For instance, the most common word in any document is likely to be "the", so "the" always goes into the list of stop words.
+
+In the __init__ method of Counts, open and read in this file and store the stop words in a list. To be honest, the ideal choice is yet another Python data structure, called a "set", but we're not going to make you learn that now...). After initializing the empty list of stop words,  write a loop to open and read the file stop_words.txt into the  list.  You will always need to add self. when referring to your stop words list since it is inside the object.
+
+In the "increment_count" method, right before inserting or incrementing a word in the dictionary, check to see if the word is in the stop word list. If a word is a stop word, don't insert it into the dictionary.
+
+Running the updated program should produce the following result. The counts for "alice" and "rabbit" should be unchanged, but the counts for "and" and "she" should now be 0.
+
+Word Counter Initialized
+Enter book file:Alice.txt
+alice: 385
+rabbit: 43
+and: 0
+she: 0
+Unique words: 2488
+Submit this program to gradescope as counter6.py.
+
+Part 7 (15 points) - Find and return the most frequent words
+
+You are almost done. Comment out the test code for Part 5 and 6 and save your program as counter7.py
+
+Now we'll fill in the "get_top_words" method, which is supposed to return the "num" most frequent words. Unfortunately dictionaries do not come with a built-in sort method; only lists have a sort method, so we'll need to put the dictionary items into a list. For instance, given this dictionary:
+
+  D = { "watch":15, "alice": 385, "rabbit":43 }
+
+We could write a for loop to produce a list of tuples like this:
+
+  [ (15, "watch"), (385, "alice"), (43, "rabbit") ]
+
+Then sort the list in reverse order to produce a list of tuples like this:
+
+  [ (385, "alice"), (43, "rabbit"), (15, "watch") ]
+
+You just need get_top_words to return the first "num" elements of such a sorted list using a list slice. To test your get_top_words method, uncomment the test code for Part 7 in the main program. Running the updated program should produce the following result:
+
+Word Counter Initialized
+Enter book file:Alice.txt
+Top 10 Words:
+[(385, 'alice'), (128, 'little'), (68, 'time'), (68, 'queen'), (61, 'king'), (56, 'turtle'), (56, 'mock'), (55, 'hatter'), (55, 'gryphon'), (48, 'head')]
+Unique words: 2488
+Submit this program to gradescope as counter7.py.
+
+Congratulations!
+
+Just for fun, make the wordle!
+
+Finally, uncomment the statement at the top of the program that imports the worldle module and line in the main program that calls wordleFromObject to makes a wordle with the 30 most frequent words. It should pop up in its own window, looking something like the figure at the top of this assignment. It won't be exactly the same, since the wordle layout is random. We have also included a few additional books from Project Gutenberg in the Homework directory.
+
+Note: Try IDLE if this doesn't come up using another IDE. 
+
 For 1 extra credit point submit a plot using Google Sheets or Microsoft Excel or Matplotlib. 
 
 For 1 additional extra credit points modify your program from Part 6 to create a plot using matplotlib. See the Jupyter notebook of Matplotlib examples. Your code should plot the countries with populations over 10 million but only label the countries with populations over 100 million. 
